@@ -38,10 +38,12 @@ Mục tiêu là phát hiện lỗi sớm và xác minh các luồng nghiệp v�
 
 ## Cấu trúc dự án
 
+```
 src/test/java/
-├── test/pages/     # Page Objects
-├── test/tests/     # Test Cases
-└── test/utils/     # DriverFactory, cấu hình ExtentReport
+├── test/pages/      # Page Objects
+├── test/tests/      # Test Cases
+└── test/utils/      # DriverFactory, cấu hình ExtentReport
+```
 
 ---
 
