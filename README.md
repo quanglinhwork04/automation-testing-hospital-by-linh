@@ -71,7 +71,6 @@ src/test/java/
 - Selenium WebDriver với Java — xử lý waits, JavaScript Executor, dropdown, alert
 - Thiết kế framework theo mô hình Page Object Model
 - Viết test cases cho cả luồng happy path lẫn negative và boundary scenarios
-- Kiểm thử bảo mật cơ bản với XSS và SQL Injection
 - Tạo báo cáo chuyên nghiệp bằng ExtentReports
 
 ---
