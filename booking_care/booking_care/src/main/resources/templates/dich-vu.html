@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Laralink">
+    <!-- Favicon Icon -->
+    <link rel="icon" href="images/favicon.png">
+    <!-- Site Title -->
+    <title>ProHealth - Medical and Healthcare Template</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
+    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="css/slick.css">
+    <link rel="stylesheet" href="css/odometer.css">
+    <link rel="stylesheet" href="css/lightgallery.min.css">
+    <link rel="stylesheet" href="css/jquery.timepicker.min.css">
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <link rel="stylesheet" href="css/select2.min.css">
+    <link rel="stylesheet" href="css/animated-headline.css">
+    <link rel="stylesheet" href="css/dichvu.css">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- custom css file link  -->
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Title</title>
+</head>
+
+<body>
+<header id="pq-header" class="pq-header-default ">
+    <div th:replace="fragments/fragment :: loginBar"></div>
+    <nav th:replace="fragments/fragment :: menu"></nav>
+</header>
+<!-- End Hero -->
+<!-- Start Features Section -->
+<section class="cs_shape_wrap">
+    <div class="cs_shape_1"></div>
+    <div class="cs_height_185 cs_height_xl_140 cs_height_lg_100"></div>
+    <div class="container">
+        <div class="cs_section_heading cs_style_1 text-center">
+            <h2 class="cs_section_title cs_fs_72 m-0">Giá Trị Của Chúng Tôi</h2>
+        </div>
+        <div class="cs_height_72 cs_height_lg_50"></div>
+        <div class="cs_random_features">
+            <div class="cs_random_features_col">
+                <div class="cs_feature cs_style_1 cs_shadow_1 cs_radius_25 cs_white_bg">
+                    <h2 class="cs_feature_title cs_semibold cs_fs_40 cs_center">
+                <span class="cs_feature_icon cs_accent_bg cs_center rounded-circle">
+                  <img src="images/compassion.svg" alt="Icon">
+                </span>
+                        <span>Lòng Trắc Ẩn</span>
+                    </h2>
+                    <p class="m-0 text-center">Chúng tôi hiểu rằng việc tìm kiếm chăm sóc y tế có thể là một trải nghiệm căng thẳng và đầy cảm xúc, và chúng tôi nỗ lực tạo ra một môi trường chào đón và hỗ trợ giúp bệnh nhân cảm thấy thoải mái và yên tâm.</p>
+                </div>
+            </div>
+            <div class="cs_random_features_col">
+                <div class="cs_feature cs_style_1 cs_shadow_1 cs_radius_25 cs_white_bg">
+                    <h2 class="cs_feature_title cs_semibold cs_fs_40 cs_center">
+                <span class="cs_feature_icon cs_accent_bg cs_center rounded-circle">
+                  <img src="images/excellence.svg" alt="Icon">
+                </span>
+                        <span>Xuất Sắc</span>
+                    </h2>
+                    <p class="m-0 text-center">Chúng tôi cam kết cung cấp dịch vụ y tế xuất sắc cho bệnh nhân. Chúng tôi tin tưởng vào việc không ngừng nâng cao kỹ năng, kiến thức và nguồn lực để đảm bảo mang lại chất lượng chăm sóc tốt nhất có thể.</p>
+                </div>
+            </div>
+            <div class="cs_random_features_col">
+                <div class="cs_feature cs_style_1 cs_shadow_1 cs_radius_25 cs_white_bg">
+                    <h2 class="cs_feature_title cs_semibold cs_fs_40 cs_center">
+                <span class="cs_feature_icon cs_accent_bg cs_center rounded-circle">
+                  <img src="images/integrity.svg" alt="Icon">
+                </span>
+                        <span>Trung Thực</span>
+                    </h2>
+                    <p class="m-0 text-center">Chúng tôi tin tưởng vào việc thực hành y học với sự trung thực và minh bạch. Chúng tôi giao tiếp và ra quyết định một cách rõ ràng, luôn đặt lợi ích của bệnh nhân lên hàng đầu và cung cấp giải pháp tốt nhất.</p>
+                </div>
+            </div>
+            <div class="cs_random_features_col">
+                <div class="cs_feature cs_style_1 cs_shadow_1 cs_radius_25 cs_white_bg">
+                    <h2 class="cs_feature_title cs_semibold cs_fs_40 cs_center">
+                <span class="cs_feature_icon cs_accent_bg cs_center rounded-circle">
+                  <img src="images/respect.svg" alt="Icon">
+                </span>
+                        <span>Tôn Trọng</span>
+                    </h2>
+                    <p class="m-0 text-center">Chúng tôi đối xử với mọi người bằng sự tôn trọng và phẩm giá, bất kể nền tảng, niềm tin hoặc hoàn cảnh của họ. Chúng tôi tin rằng mỗi người đều xứng đáng được đối xử với lòng trắc ẩn và sự tử tế.</p>
+                </div>
+            </div>
+            <div class="cs_random_features_col">
+                <div class="cs_feature cs_style_1 cs_shadow_1 cs_radius_25 cs_white_bg">
+                    <h2 class="cs_feature_title cs_semibold cs_fs_40 cs_center">
+                <span class="cs_feature_icon cs_accent_bg cs_center rounded-circle">
+                  <img src="images/teamwork.svg" alt="Icon">
+                </span>
+                        <span>Làm Việc Nhóm</span>
+                    </h2>
+                    <p class="m-0 text-center">Chúng tôi tin tưởng vào việc làm việc hợp tác với các thành viên trong đội và các chuyên gia y tế khác để cung cấp dịch vụ chăm sóc toàn diện và hiệu quả cho bệnh nhân.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="cs_height_200 cs_height_xl_150 cs_height_lg_100"></div>
+</section>
+
+<section>
+    <div class="cs_height_185 cs_height_xl_140 cs_height_lg_100"></div>
+    <div class="container">
+        <div class="cs_section_heading cs_style_1">
+            <h2 class="cs_section_title cs_fs_72 m-0">Giải Thưởng</h2>
+        </div>
+        <div class="cs_height_72 cs_height_lg_50"></div>
+        <div class="row gy-4">
+            <div class="col-xxl-3 col-md-6">
+                <div class="cs_iconbox cs_style_1 cs_shadow_1 cs_radius_15">
+                    <div class="cs_iconbox_top">
+                        <div class="cs_iconbox_icon cs_radius_15 cs_accent_bg cs_center">
+                            <img src="images/award.svg" alt="Giải Thưởng">
+                        </div>
+                        <h2 class="cs_iconbox_title cs_medium cs_fs_20 m-0">Giải Thưởng Chất Lượng Quốc Gia Malcolm Baldrige</h2>
+                    </div>
+                    <p class="cs_iconbox_text">Giải thưởng này vinh danh các tổ chức y tế thể hiện xuất sắc trong lãnh đạo, lập kế hoạch chiến lược, sự hài lòng của khách hàng và nhân viên, cũng như hiệu quả hoạt động.</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-md-6">
+                <div class="cs_iconbox cs_style_1 cs_shadow_1 cs_radius_15">
+                    <div class="cs_iconbox_top">
+                        <div class="cs_iconbox_icon cs_radius_15 cs_accent_bg cs_center">
+                            <img src="images/award.svg" alt="Giải Thưởng">
+                        </div>
+                        <h2 class="cs_iconbox_title cs_medium cs_fs_20 m-0">Giải Thưởng HIMSS Davies</h2>
+                    </div>
+                    <p class="cs_iconbox_text">Giải thưởng này vinh danh các tổ chức y tế sử dụng công nghệ thông tin y tế để cải thiện kết quả điều trị và giảm chi phí.</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-md-6">
+                <div class="cs_iconbox cs_style_1 cs_shadow_1 cs_radius_15">
+                    <div class="cs_iconbox_top">
+                        <div class="cs_iconbox_icon cs_radius_15 cs_accent_bg cs_center">
+                            <img src="images/award.svg" alt="Giải Thưởng">
+                        </div>
+                        <h2 class="cs_iconbox_title cs_medium cs_fs_20 m-0">Bệnh Viện Tốt Nhất Quốc Gia Healthgrades</h2>
+                    </div>
+                    <p class="cs_iconbox_text">Sự công nhận này được trao cho các bệnh viện đạt điểm cao về chất lượng lâm sàng và an toàn bệnh nhân trên nhiều chuyên khoa và thủ thuật.</p>
+                </div>
+            </div>
+            <div class="col-xxl-3 col-md-6">
+                <div class="cs_iconbox cs_style_1 cs_shadow_1 cs_radius_15">
+                    <div class="cs_iconbox_top">
+                        <div class="cs_iconbox_icon cs_radius_15 cs_accent_bg cs_center">
+                            <img src="images/award.svg" alt="Giải Thưởng">
+                        </div>
+                        <h2 class="cs_iconbox_title cs_medium cs_fs_20 m-0">Dấu Vàng Chấp Thuận Của Joint Commission</h2>
+                    </div>
+                    <p class="cs_iconbox_text">Sự công nhận này được trao cho các bệnh viện đáp ứng các tiêu chuẩn nghiêm ngặt về an toàn bệnh nhân và chất lượng chăm sóc.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- End Blog Section -->
+<!-- Start Appointment Section -->
+<section class="cs_shape_wrap" id="appointment">
+    <div class="cs_shape_2">
+        <svg width="1089" height="1002" viewBox="0 0 1089 1002" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path opacity="0.2" d="M444.57 826.314C529.104 1065.89 739.237 1008.47 834.547 949.171C981.567 843.507 997.742 626.309 999.967 542.103C1001.75 474.739 1058.26 303.318 1086.29 226.028C1115.11 -40.9119 843.814 0.833657 795.515 6.26561C747.215 11.6976 593.662 71.4673 441.083 40.606C319.02 15.917 205.529 28.8791 164.042 38.4462C-13.0065 100.952 -2.22156 200.043 3.13034 242.954C8.48234 285.864 53.2821 366.319 234.465 453.073C379.411 522.475 435.469 730.386 444.57 826.314Z" fill="url(#paint0_linear_5_285)"></path>
+            <defs>
+                <linearGradient id="paint0_linear_5_285" x1="844.274" y1="950.214" x2="424.319" y2="-69.4782" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#86BBF1" offset="0"></stop>
+                    <stop offset="1" stop-color="#D2EAEF"></stop>
+                </linearGradient>
+            </defs>
+        </svg>
+    </div>
+</section>
+<!-- End Appointment Section -->
+<!-- Start FAQ Section -->
+<!-- End FAQ Section -->
+<!-- Start Brands -->
+<div class="cs_height_200 cs_height_xl_150 cs_height_lg_110"></div>
+<div class="container">
+    <div class="cs_brands cs_style_1">
+        <div class="cs_brand cs_center"><img src="images/brand_1.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_2.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_3.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_4.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_5.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_6.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_7.png" alt="Thương Hiệu"></div>
+        <div class="cs_brand cs_center"><img src="images/brand_8.png" alt="Thương Hiệu"></div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- End Banner -->
+<!-- Start Blog Section -->
+
+<!-- End Blog Section -->
+
+
+<div class="cs_height_200 cs_height_xl_150 cs_height_lg_110"></div>
+
+<section th:replace="fragments/fragment :: footer"></section>
+
+<script th:src="@{js/script.js}"></script>
+
+
+
+</body>
+
+</html>

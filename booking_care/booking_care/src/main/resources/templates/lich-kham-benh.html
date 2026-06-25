@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Danh sách lịch khám</title>
+    <style>
+        input { font-size: 16px !important; }
+        nav.navecation ul li { list-style: none; float: left; padding-right: 20px; }
+        nav.navecation ul li a { text-decoration: none; color: #222; background-color: #ccc; padding: 4px 5px; }
+        nav.navecation .active { background-color: #A7727D; color: #fff; }
+    </style>
+</head>
+<body>
+<header id="pq-header" class="pq-header-default ">
+    <div th:replace="fragments/fragment :: loginBar"></div>
+    <nav th:replace="fragments/fragment :: menu"></nav>
+</header>
+
+<section class="blogs" style="font-size: 16px;">
+    <h1 class="heading"><span>Danh sách lịch khám</span></h1>
+    <p class="alert alert-danger validationError" th:if="${ok}" th:text="${ok}" role="alert"></p>
+
+    <nav class="navecation" style="margin-bottom: 60px">
+        <ul id="navi">
+            <li><a class="menu status0" href="/lich-kham-benh?status=0">Chưa xử lý</a></li>
+            <li><a class="menu status1" href="/lich-kham-benh?status=1">Đã xác nhận</a></li>
+            <li><a class="menu status2" href="/lich-kham-benh?status=2">Đã hủy</a></li>
+            <li><a class="menu status3" href="/lich-kham-benh?status=3">Đã khám</a></li>
+        </ul>
+    </nav>
+    <p class="alert alert-danger" th:if="${lichKhamList.size() == 0}">Danh sách trống</p>
+    <div class="container" th:each="lichKham : ${lichKhamList}">
+        <form id="paymentForm_${lichKham.id}" th:action="@{/thanhToan}" method="post">
+            <h3 style="font-size: 25px!important;display: inline-block" th:text="'Lịch khám bệnh số ' + ${lichKham.id}"></h3>
+            <table class="table table-striped" style="font-size: 16px;">
+                <thead>
+                <tr>
+                    <th scope="col">Id lịch khám</th>
+                    <td th:text="${lichKham.id}"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="col">Bác sỹ khám</th>
+                    <td th:text="${lichKham.getBacSy().getHoTen()}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Chuyên khoa</th>
+                    <td th:text="${lichKham.getBacSy().getChuyenKhoa().ten}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Ngày khám</th>
+                    <td th:text="${#dates.format(lichKham.ngayKham, 'dd/MM/yyyy')}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Khung giờ khám</th>
+                    <td th:if="${lichKham.khungGioKham==1}">Từ 8h30 đến 9h30</td>
+                    <td th:if="${lichKham.khungGioKham==2}">Từ 10h00 đến 11h00</td>
+                    <td th:if="${lichKham.khungGioKham==3}">Từ 14h00 đến 15h00</td>
+                    <td th:if="${lichKham.khungGioKham==4}">Từ 15h30 đến 16h30</td>
+                </tr>
+                <tr>
+                    <th scope="col">Thời gian đăng kí</th>
+                    <td th:text="${#dates.format(lichKham.thoiGianDk, 'dd/MM/yyyy HH:mm')}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Nơi khám</th>
+                    <td th:text="${lichKham.bacSy.noiKham + ', Bệnh viện Việt Đức (40 Tràng Thi, Hoàn Kiếm, Hà Nội)'}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Giá tiền khám</th>
+                    <td th:text="${lichKham.tienKham}" class="tienKham1"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Trạng thái</th>
+                    <td th:text="${lichKham.status.getValue()}"></td>
+                </tr>
+                <tr>
+                    <th scope="col">Trạng thái thanh toán</th>
+                    <td th:if="${lichKham.isPaid()}">Đã thanh toán</td>
+                    <td th:unless="${lichKham.isPaid()}">Chưa thanh toán</td>
+                </tr>
+                <tr th:unless="${lichKham.isPaid() || lichKham.status.getValue() == 'Đã hủy'}">
+                    <th scope="col">Action</th>
+                    <td>
+                        <div class="row align-items-center justify-content-between">
+                            <div class="col-md-2 col-12" th:if="${lichKham.status.getValue() == 'Chờ xử lý'}">
+                                <a th:href="'/huyLichKham/' + ${lichKham.id}" class="btn btn-primary" style="color: white; border: none; border-radius: .5rem; box-shadow: none; background: red;">Hủy lịch khám</a>
+                            </div>
+                            <div class="col-md-3 col-12">
+                                <span>Chọn hình thức thanh toán: </span>
+                            </div>
+                            <div class="col-md-4 col-12">
+                                <input style="display:none;" th:value="${lichKham.tienKham}" name="tienKham">
+                                <input style="display:none;" th:value="${lichKham.id}" name="idLichKham">
+                                <select name="payment_method" id="paymentMethod_${lichKham.id}" required>
+                                    <option value="" disabled selected>Chọn phương thức</option>
+                                    <option value="MOMO">Quét mã Momo</option>
+                                    <option value="ZALOPAY">Quét mã ZaloPay</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2 col-12">
+                                <input type="submit" class="btn" value="Xác nhận" onclick="return confirm('Xác nhận lựa chọn thanh toán?')">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </form>
+    </div>
+    <style>
+        section.blogs {
+            padding: 3rem 0 !important;
+            background: linear-gradient(135deg, #f5f7fa, #ffffff) !important;
+            min-height: calc(100vh - 120px) !important;
+        }
+
+        section.blogs .heading {
+            font-size: 2.5rem !important;
+            font-weight: 700 !important;
+            color: #1a3c63 !important;
+            text-align: center !important;
+            margin-bottom: 2.5rem !important;
+            position: relative !important;
+            text-transform: uppercase !important;
+        }
+
+        section.blogs .heading span {
+            color: #007bff !important;
+        }
+
+        section.blogs .heading::after {
+            display: none !important;
+        }
+
+        section.blogs .validationError,
+        section.blogs .alert-danger {
+            border-radius: 10px !important;
+            padding: 1rem !important;
+            margin: 0 auto 2rem !important;
+            font-size: 1rem !important;
+            text-align: center !important;
+            max-width: 600px !important;
+            background-color: #fef0f0 !important;
+            border: 1px solid #f5c6cb !important;
+            color: #000 !important;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+        }
+
+        section.blogs .navecation {
+            display: flex !important;
+            justify-content: center !important;
+            margin-bottom: 60px !important;
+        }
+
+        section.blogs .navecation ul#navi {
+            display: flex !important;
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            background: #ffffff !important;
+            border-radius: 30px !important;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1) !important;
+            overflow: hidden !important;
+        }
+
+        section.blogs .navecation ul#navi li {
+            margin: 0 !important;
+        }
+
+        section.blogs .navecation ul#navi li a {
+            text-decoration: none !important;
+            color: #333 !important;
+            padding: 12px 25px !important;
+            display: block !important;
+            transition: all 0.3s ease !important;
+            font-size: 1rem !important;
+            font-weight: 500 !important;
+        }
+
+        section.blogs .navecation ul#navi li a:hover,
+        section.blogs .navecation ul#navi li a.active {
+            background: #A7727D !important;
+            color: #fff !important;
+        }
+
+        section.blogs .container {
+            background: #ffffff !important;
+            padding: 1.5rem !important;
+            border-radius: 10px !important;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1) !important;
+            margin-bottom: 1.5rem !important;
+            border-left: 4px solid #007bff !important;
+            max-width: 1100px !important;
+            width: 100% !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
+        }
+
+        section.blogs .table {
+            background: #fff !important;
+            border-radius: 8px !important;
+            overflow: hidden !important;
+            border: 1px solid #e9ecef !important;
+        }
+
+        section.blogs .table th {
+            background: #f1f3f5 !important;
+            color: #333 !important;
+            font-weight: 600 !important;
+        }
+
+        section.blogs .table td {
+            color: #555 !important;
+        }
+
+        section.blogs .table th,
+        section.blogs .table td {
+            vertical-align: middle !important;
+            padding: 0.75rem !important;
+        }
+
+        section.blogs .table-striped tbody tr:nth-of-type(odd) {
+            background-color: #f9f9f9 !important;
+        }
+
+        section.blogs .btn {
+            background: #28a745 !important;
+            color: #fff !important;
+            border: none !important;
+            padding: 0.5rem 1rem !important; /* Tăng padding để đồng bộ chiều cao */
+            border-radius: 4px !important;
+            font-size: 0.9rem !important;
+            transition: all 0.3s ease !important;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
+            line-height: 1.6 !important; /* Đồng bộ chiều cao */
+            height: auto !important; /* Đảm bảo chiều cao tự điều chỉnh */
+            display: inline-flex !important;
+            align-items: center !important;
+        }
+
+        section.blogs .btn:hover {
+            background: #218838 !important;
+            transform: translateY(-2px) !important;
+        }
+
+        section.blogs .btn-primary {
+            background: #dc3545 !important;
+        }
+
+        section.blogs .btn-primary:hover {
+            background: #c82333 !important;
+        }
+
+        section.blogs select {
+            width: 100% !important;
+            padding: 0.5rem 1rem !important; /* Tăng padding để đồng bộ chiều cao */
+            border: 2px solid #e0e0e0 !important;
+            border-radius: 4px !important;
+            font-size: 0.9rem !important;
+            transition: border-color 0.3s ease !important;
+            background: #fff !important;
+            color: #555 !important;
+            min-width: 150px !important;
+            line-height: 1.6 !important; /* Đồng bộ chiều cao */
+            height: auto !important; /* Đảm bảo chiều cao tự điều chỉnh */
+        }
+
+        section.blogs select:focus {
+            border-color: #007bff !important;
+            outline: none !important;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3) !important;
+        }
+
+        section.blogs .row.align-items-center.justify-content-between {
+            align-items: center !important; /* Căn giữa theo chiều dọc */
+            justify-content: space-between !important; /* Phân bố đều */
+            gap: 0.5rem !important; /* Khoảng cách giữa các cột */
+            display: flex !important;
+            flex-wrap: nowrap !important; /* Không xuống dòng trên desktop */
+        }
+
+        section.blogs .row.align-items-center.justify-content-between > div {
+            flex: 0 0 auto !important; /* Không co giãn tự động */
+            width: auto !important; /* Chiều rộng tự động */
+            text-align: center !important; /* Căn giữa văn bản trong div */
+            display: flex !important;
+            align-items: center !important; /* Căn giữa nội dung trong div */
+            min-height: 38px !important; /* Đặt chiều cao tối thiểu để đồng bộ */
+        }
+
+        section.blogs .row.align-items-center.justify-content-between > div > span {
+            line-height: 1.6 !important; /* Đồng bộ chiều cao với nút và select */
+            display: inline-flex !important;
+            align-items: center !important;
+            height: 100% !important;
+        }
+
+        @media (max-width: 768px) {
+            section.blogs .heading {
+                font-size: 2rem !important;
+            }
+            section.blogs .navecation ul#navi {
+                flex-direction: column !important;
+                border-radius: 15px !important;
+            }
+            section.blogs .navecation ul#navi li a {
+                padding: 10px 15px !important;
+                text-align: center !important;
+            }
+            section.blogs .container {
+                padding: 1rem !important;
+                max-width: 100% !important; /* Đầy đủ chiều rộng trên mobile */
+            }
+            section.blogs .table th,
+            section.blogs .table td {
+                font-size: 0.85rem !important;
+                padding: 0.5rem !important;
+            }
+            section.blogs .row.align-items-center.justify-content-between {
+                flex-direction: column !important; /* Xếp thành cột trên mobile */
+                flex-wrap: wrap !important; /* Cho phép xuống dòng */
+                text-align: center !important;
+            }
+            section.blogs .row.align-items-center.justify-content-between > div {
+                width: 100% !important; /* Đầy đủ chiều rộng trên mobile */
+                margin-bottom: 0.5rem !important;
+                min-height: auto !important; /* Reset chiều cao trên mobile */
+            }
+            section.blogs select {
+                min-width: 100% !important; /* Đầy đủ chiều rộng trên mobile */
+            }
+        }
+    </style>
+</section>
+
+<section th:replace="fragments/fragment :: footer"></section>
+
+<script th:src="@{js/script.js}"></script>
+<script>
+    $(document).ready(function () {
+        var pageURL = $(location).attr("pathname") + $(location).attr("search");
+        if (pageURL === "/lich-kham-benh?status=0") {
+            $('li a').removeClass("active");
+            $('.status0').addClass("active");
+        } else if (pageURL === "/lich-kham-benh?status=1") {
+            $('li a').removeClass("active");
+            $('.status1').addClass("active");
+        } else if (pageURL === "/lich-kham-benh?status=2") {
+            $('li a').removeClass("active");
+            $('.status2').addClass("active");
+        } else if (pageURL === "/lich-kham-benh?status=3") {
+            $('li a').removeClass("active");
+            $('.status3').addClass("active");
+        }
+        $('.tienKham1').each(function (index, value) {
+            let x = Number($(this).html());
+            x = x.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+            $(this).html(x);
+        });
+    });
+</script>
+</body>
+</html>

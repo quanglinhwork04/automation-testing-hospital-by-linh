@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Thanh toán</title>
+</head>
+<body>
+<header id="pq-header" class="pq-header-default ">
+    <div th:replace="fragments/fragment :: loginBar"></div>
+    <nav th:replace="fragments/fragment :: menu"></nav>
+</header>
+
+<section class="review" id="review" style="padding: 4rem 1rem; background: linear-gradient(135deg, #f8fafc, #ffffff); min-height: calc(100vh - 80px); font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; display: flex; flex-direction: column; align-items: center;">
+    <h1 style="font-size: 2.25rem; font-weight: 700; color: #1e3a8a; text-align: center; margin-bottom: 1.5rem; letter-spacing: -0.025em;">Kết Quả Thanh Toán</h1>
+    <p class="alert alert-info" th:if="${msg}" th:text="${msg}" style="border-radius: 8px; padding: 1rem 1.5rem; margin-bottom: 2rem; font-size: 1rem; text-align: center; max-width: 700px; width: 100%; background-color: #eff6ff; border: none; color: #1e40af; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05); line-height: 1.5;"></p>
+
+    <div style="display: flex; flex-wrap: wrap; gap: 2rem; background: #ffffff; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08); max-width: 1200px; width: 100%; margin: 0 auto;">
+        <!-- Phần bảng (bill) bên trái -->
+        <div style="flex: 1; min-width: 400px;">
+            <table class="table" style="font-size: 0.95rem; width: 100%; border-collapse: separate; border-spacing: 0; border-radius: 8px; overflow: hidden; background: #f9fafb;">
+                <thead>
+                <tr>
+                    <th scope="col" style="width: 200px; background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Id lịch khám</th>
+                    <td th:text="${lichKham.id}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Bác sỹ khám</th>
+                    <td th:text="${lichKham.getBacSy().getHoTen()}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Chuyên khoa</th>
+                    <td th:text="${lichKham.getBacSy().getChuyenKhoa().ten}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Ngày khám</th>
+                    <td th:text="${#dates.format(lichKham.ngayKham, 'dd/MM/yyyy')}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Khung giờ khám</th>
+                    <td th:if="${lichKham.khungGioKham==1}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Từ 8h30 đến 9h30</td>
+                    <td th:if="${lichKham.khungGioKham==2}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Từ 10h00 đến 11h00</td>
+                    <td th:if="${lichKham.khungGioKham==3}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Từ 14h00 đến 15h00</td>
+                    <td th:if="${lichKham.khungGioKham==4}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Từ 15h30 đến 16h30</td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Thời gian đăng kí</th>
+                    <td th:text="${#dates.format(lichKham.thoiGianDk, 'dd/MM/yyyy HH:mm')}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Mô tả triệu chứng</th>
+                    <td th:text="${lichKham.moTaTrieuChung}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Giá tiền khám</th>
+                    <td th:text="${lichKham.tienKham}" class="tienKham1" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;">Trạng thái</th>
+                    <td th:text="${lichKham.status.getValue()}" style="color: #4b5563; padding: 1rem; vertical-align: middle; border-bottom: 1px solid #e5e7eb;"></td>
+                </tr>
+                <tr>
+                    <th scope="col" style="background: #e5e7eb; color: #374151; font-weight: 600; padding: 1rem; vertical-align: middle;">Trạng thái thanh toán</th>
+                    <td th:if="${lichKham.isPaid()}" style="color: #16a34a; padding: 1rem; vertical-align: middle; font-weight: 600;">Đã thanh toán</td>
+                    <td th:unless="${lichKham.isPaid()}" style="color: #dc2626; padding: 1rem; vertical-align: middle; font-weight: 600;">Chưa thanh toán</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Phần bên phải -->
+        <div style="flex: 1; min-width: 300px; display: flex; flex-direction: column; align-items: center; padding: 1rem;">
+            <div th:if="${momoDisplayId != null && momoDisplayId == lichKham.id && paymentMethod == 'MOMO'}" style="text-align: center; width: 100%; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-size: 1.25rem; color: #1f2937; margin-bottom: 1rem; font-weight: 600;">Thanh Toán Bằng Momo</h3>
+                <img src="/images/momo-qr-code.jpg" alt="Momo QR Code" style="width: 220px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 1rem;">
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 0.5rem; line-height: 1.5;">Vui lòng quét mã QR này qua ứng dụng Momo và nhập số tiền: <span th:text="${lichKham.tienKham}" style="font-weight: 600; color: #d946ef;"></span> VND</p>
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.5;">Nội dung chuyển khoản: Thanh toan lich kham <span th:text="${lichKham.id}" style="font-weight: 600;"></span></p>
+                <form th:action="@{/confirmMomoPayment}" method="post" style="display: inline-block;">
+                    <input type="hidden" th:value="${lichKham.id}" name="idLichKham">
+                    <button type="submit" onclick="return confirm('Bạn đã thanh toán qua Momo?')" style="background: #16a34a; color: #fff; border: none; border-radius: 6px; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: inline-flex; align-items: center; justify-content: center;">Xác nhận đã thanh toán</button>
+                </form>
+            </div>
+
+            <div th:if="${momoDisplayId != null && momoDisplayId == lichKham.id && paymentMethod == 'ZALOPAY'}" style="text-align: center; width: 100%; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-size: 1.25rem; color: #1f2937; margin-bottom: 1rem; font-weight: 600;">Thanh Toán Bằng ZaloPay</h3>
+                <img src="/images/zalopay-qr-code.jpg" alt="ZaloPay QR Code" style="width: 220px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); margin-bottom: 1rem;">
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 0.5rem; line-height: 1.5;">Vui lòng quét mã QR này qua ứng dụng ZaloPay và nhập số tiền: <span th:text="${lichKham.tienKham}" style="font-weight: 600; color: #2563eb;"></span> VND</p>
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.5;">Nội dung chuyển khoản: Thanh toan lich kham <span th:text="${lichKham.id}" style="font-weight: 600;"></span></p>
+                <form th:action="@{/confirmZaloPayPayment}" method="post" style="display: inline-block;">
+                    <input type="hidden" th:value="${lichKham.id}" name="idLichKham">
+                    <button type="submit" onclick="return confirm('Bạn đã thanh toán qua ZaloPay?')" style="background: #16a34a; color: #fff; border: none; border-radius: 6px; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 500; cursor: pointer; transition: background 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: inline-flex; align-items: center; justify-content: center;">Xác nhận đã thanh toán</button>
+                </form>
+            </div>
+
+            <div th:unless="${momoDisplayId != null && momoDisplayId == lichKham.id && (paymentMethod == 'MOMO' || paymentMethod == 'ZALOPAY')}" style="text-align: center; width: 100%; background: #fff; padding: 1.5rem; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-size: 1.25rem; color: #1f2937; margin-bottom: 1rem; font-weight: 600;">Thanh Toán Hoàn Tất</h3>
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1rem; line-height: 1.5;">Cảm ơn bạn đã thanh toán cho lịch khám <span th:text="${lichKham.id}" style="font-weight: 600;"></span>.</p>
+                <p style="font-size: 0.95rem; color: #4b5563; margin-bottom: 1.5rem; line-height: 1.5;">Vui lòng đến đúng giờ tại khung giờ khám đã chọn: <span th:if="${lichKham.khungGioKham==1}" style="font-weight: 600;">8h30 - 9h30</span><span th:if="${lichKham.khungGioKham==2}" style="font-weight: 600;">10h00 - 11h00</span><span th:if="${lichKham.khungGioKham==3}" style="font-weight: 600;">14h00 - 15h00</span><span th:if="${lichKham.khungGioKham==4}" style="font-weight: 600;">15h30 - 16h30</span> ngày <span th:text="${#dates.format(lichKham.ngayKham, 'dd/MM/yyyy')}" style="font-weight: 600;"></span>.</p>
+                <a href="/lich-kham-benh" style="background: #2563eb; color: #fff; border: none; border-radius: 6px; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: background 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: inline-flex; align-items: center; justify-content: center;">Xem lịch khám của bạn</a>
+            </div>
+        </div>
+    </div>
+
+    <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="/lich-kham-benh" style="background: #2563eb; color: #fff; border: none; border-radius: 6px; padding: 0.75rem 1.5rem; font-size: 0.95rem; font-weight: 500; text-decoration: none; transition: background 0.3s ease, transform 0.2s ease; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); display: inline-flex; align-items: center; justify-content: center;">Quay lại danh sách lịch khám</a>
+    </div>
+
+    <style>
+        section.review button:hover,
+        section.review a:hover {
+            background: #15803d !important; /* Darker green for buttons */
+            transform: translateY(-2px);
+        }
+
+        section.review a:hover {
+            background: #1e40af !important; /* Darker blue for links */
+        }
+
+        section.review table th,
+        section.review table td {
+            transition: background 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            section.review {
+                padding: 2rem 1rem;
+            }
+            section.review h1 {
+                font-size: 1.75rem !important;
+            }
+            section.review > div {
+                flex-direction: column !important;
+                gap: 1.5rem !important;
+                padding: 1.5rem;
+            }
+            section.review > div > div {
+                min-width: 100% !important;
+            }
+            section.review .table th,
+            section.review .table td {
+                font-size: 0.9rem !important;
+                padding: 0.75rem !important;
+            }
+            section.review img {
+                width: 180px !important;
+            }
+            section.review button,
+            section.review a {
+                width: 100% !important;
+                padding: 0.75rem !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            section.review h1 {
+                font-size: 1.5rem !important;
+            }
+            section.review .alert {
+                font-size: 0.9rem !important;
+                padding: 0.75rem !important;
+            }
+            section.review .table th,
+            section.review .table td {
+                font-size: 0.85rem !important;
+                padding: 0.5rem !important;
+            }
+        }
+    </style>
+</section>
+
+<section th:replace="fragments/fragment :: footer"></section>
+
+<script th:src="@{js/script.js}"></script>
+<script>
+    $(document).ready(function () {
+        $('.tienKham1').each(function (index, value) {
+            let x = Number($(this).html());
+            x = x.toLocaleString('it-IT', {style: 'currency', currency: 'VND'});
+            $(this).html(x);
+        });
+    });
+</script>
+</body>
+</html>

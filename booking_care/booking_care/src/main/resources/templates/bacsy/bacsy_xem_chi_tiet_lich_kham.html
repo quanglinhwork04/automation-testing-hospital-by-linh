@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Welcome Bác sỹ Control Panel</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css"/>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        :root {
+            --primary: #4a90e2;
+            --secondary: #6b7280;
+            --background: #f9fafb;
+            --text: #1f2937;
+            --success: #34d399;
+            --warning: #facc15;
+            --danger: #ef4444;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0e7ff, #dbeafe);
+            color: var(--text);
+            margin: 0;
+            padding-top: 70px;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            text-rendering: optimizeLegibility;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        .content-wrapper {
+            padding: 2rem 1rem;
+            flex: 1 0 auto;
+        }
+
+        .breadcrumb {
+            background: var(--white);
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .breadcrumb-item a {
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        .breadcrumb-item a:hover {
+            text-decoration: underline;
+            color: #2563eb;
+        }
+
+        .breadcrumb-item a::before {
+            content: "\f015";
+            font-family: "Font Awesome 5 Free";
+            font-weight: 900;
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            background: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .card-header {
+            background: var(--background);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.25rem 1.5rem;
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+        }
+
+        .table {
+            margin-bottom: 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--white);
+        }
+
+        .table th {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--text);
+            padding: 1rem;
+            background: var(--background);
+            border-bottom: 2px solid #e5e7eb;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .table td {
+            vertical-align: middle;
+            font-size: 1rem;
+            padding: 1rem;
+            border-bottom: 1px solid #e5e7eb;
+            color: var(--text);
+        }
+
+        .btn {
+            border-radius: 6px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 500;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            border: none;
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: #357abd;
+        }
+
+        .btn-warning {
+            background: var(--warning);
+            border: none;
+            color: var(--white);
+        }
+
+        .btn-warning:hover {
+            background: #d4a200;
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            border: none;
+            color: var(--white);
+        }
+
+        .btn-danger:hover {
+            background: #b91c1c;
+        }
+
+        .modal-content {
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid #e5e7eb;
+            padding: 1.5rem;
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+        }
+
+        .modal-footer {
+            border-top: 1px solid #e5e7eb;
+            padding: 1rem 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            border-radius: 6px;
+            border: 1px solid #d1d5db;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary);
+            outline: none;
+        }
+
+        .btn-success {
+            background: var(--success);
+            border: none;
+            color: var(--white);
+        }
+
+        .btn-success:hover {
+            background: #16a34a;
+        }
+
+        .sticky-footer {
+            background: var(--white);
+            border-top: 1px solid #dee2e6;
+            padding: 0.3rem 0;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+            width: 100%;
+            flex-shrink: 0;
+        }
+
+        .footer-text {
+            font-size: 0.85rem;
+            color: var(--secondary);
+            line-height: 1;
+            margin: 0;
+        }
+
+        .scroll-to-top {
+            background: var(--primary);
+            color: var(--white);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.9;
+        }
+
+        .scroll-to-top:hover {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .card-header {
+                font-size: 1.1rem;
+            }
+            .table th, .table td {
+                font-size: 0.9rem;
+                padding: 0.75rem;
+            }
+            .btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.9rem;
+            }
+            .breadcrumb {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.85rem;
+            }
+            .sticky-footer .footer-text {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .card-body {
+                padding: 1rem;
+            }
+            .modal-dialog {
+                margin: 0.5rem;
+            }
+            .modal-content {
+                margin-bottom: 0.5rem;
+            }
+            .breadcrumb {
+                margin-bottom: 1.5rem;
+            }
+            .sticky-footer {
+                padding: 0.2rem 0;
+            }
+        }
+
+        .thuoc-select {
+            min-width: 150px;
+            padding: 0.5rem 1rem;
+        }
+    </style>
+</head>
+<body class="fixed-nav sticky-footer" id="page-top">
+<div th:replace="fragments/fragment :: navBacSy"></div>
+
+<!-- Content -->
+<div class="content-wrapper">
+    <div class="container-fluid">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/bacsy/danhSachLichKham">Quản lý lịch khám</a></li>
+            <li class="breadcrumb-item active">Xem chi tiết lịch khám</li>
+        </ol>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Thông tin lịch khám
+                    </div>
+                    <div class="card-body">
+                        <p class="alert alert-success" th:if="${ok}" th:text="${ok}" role="alert"></p>
+                        <p class="alert alert-danger" th:if="${loi}" th:text="${loi}" role="alert"></p>
+                        <table class="table table-striped">
+                            <tr><th style="width: 250px;">Id lịch khám</th><td th:text="${lichKham.id}"></td></tr>
+                            <tr><th>Bác sỹ khám</th><td th:text="${lichKham.getBacSy().getHoTen()}"></td></tr>
+                            <tr><th>Chuyên khoa</th><td th:text="${lichKham.getBacSy().getChuyenKhoa().ten}"></td></tr>
+                            <tr><th>Ngày khám</th><td th:text="${#dates.format(lichKham.ngayKham, 'dd/MM/yyyy')}"></td></tr>
+                            <tr><th>Giá tiền khám</th><td th:text="${lichKham.tienKham}" class="tienKham1"></td></tr>
+                            <tr><th>Khung giờ khám</th>
+                                <td>
+                                    <div th:switch="${lichKham.khungGioKham}">
+                                        <span th:case="1">8h</span>
+                                        <span th:case="2">9h</span>
+                                        <span th:case="3">10h</span>
+                                        <span th:case="4">11h</span>
+                                        <span th:case="5">12h</span>
+                                        <span th:case="6">13h</span>
+                                        <span th:case="7">14h</span>
+                                        <span th:case="8">15h</span>
+                                        <span th:case="9">16h</span>
+                                        <span th:case="10">17h</span>
+                                        <span th:case="11">18h</span>
+                                        <span th:case="12">19h</span>
+                                        <span th:case="*">Không Xác Định</span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr><th>Thời gian đăng kí</th><td th:text="${#dates.format(lichKham.thoiGianDk, 'dd/MM/yyyy HH:mm')}"></td></tr>
+                            <tr><th>Mô tả triệu chứng</th><td th:text="${lichKham.moTaTrieuChung}"></td></tr>
+                            <tr><th>Trạng thái</th><td id="trangThai" th:text="${lichKham.status.getValue()}"></td></tr>
+                            <tr><th>Trạng thái thanh toán</th>
+                                <td th:if="${lichKham.isPaid()}">Đã thanh toán</td>
+                                <td th:unless="${lichKham.isPaid()}">Chưa thanh toán</td>
+                            </tr>
+                        </table>
+                        <div id="actionButtons" class="mt-3">
+                            <form th:if="${lichKham.status.getValue().equals('Chờ xử lý')}" id="xacNhanForm" th:action="@{'/bacsy/xacNhan?id=' + ${lichKham.id}}" method="post" style="display: inline-block;">
+                                <input id="btn-xacnhan" type="button" class="btn btn-warning" value="Xác nhận và gửi mail" onclick="confirmAppointment()"/>
+                            </form>
+                            <form th:if="${lichKham.status.getValue().equals('Đã xác nhận')}" id="daKhamForm" th:action="@{'/bacsy/daKham/' + ${lichKham.id}}" method="post" style="display: inline-block;">
+                                <input id="btn-dakham" type="button" class="btn btn-warning" value="Đã khám" onclick="markAsCompleted()"/>
+                            </form>
+                            <button id="btn-huy" th:if="${lichKham.status.getValue().equals('Chờ xử lý')}" class="btn btn-danger" data-toggle="modal" data-target="#huyLichModal">Hủy lịch khám</button>
+                            <button th:if="${lichKham.status.getValue().equals('Đã xác nhận')}" class="btn btn-primary" data-toggle="modal" data-target="#toaThuocModal">Gửi toa thuốc</button>
+                        </div>
+                        <div class="modal fade" id="huyLichModal" tabindex="-1" role="dialog" aria-labelledby="huyLichModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="huyLichModalLabel">Hủy lịch khám</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form id="huyLichForm">
+                                            <input type="hidden" name="id" th:value="${lichKham.id}" />
+                                            <div class="form-group">
+                                                <label for="lyDoHuy">Lý do hủy (bắt buộc)</label>
+                                                <textarea class="form-control" id="lyDoHuy" name="lyDoHuy" rows="5" required placeholder="Nhập lý do hủy lịch khám"></textarea>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                <button type="button" class="btn btn-danger" id="confirmCancelButton" onclick="huyLich()">Xác nhận hủy</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        Thông tin bệnh nhân
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tr><th style="width: 250px;">Họ tên</th><td th:text="${lichKham.benhNhan.hoTen}"></td></tr>
+                            <tr><th>SDT</th><td th:text="${lichKham.benhNhan.sdt}"></td></tr>
+                            <tr><th>Email</th><td th:text="${lichKham.benhNhan.email}"></td></tr>
+                            <tr><th>Địa chỉ</th><td th:text="${lichKham.benhNhan.diaChi}"></td></tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="toaThuocModal" tabindex="-1" role="dialog" aria-labelledby="toaThuocModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="toaThuocModalLabel">Kê Toa Thuốc</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="toaThuocForm">
+                            <input type="hidden" name="lichKhamId" th:value="${lichKham.id}"/>
+                            <input type="hidden" name="benhNhanEmail" th:value="${lichKham.benhNhan.email}"/>
+                            <div class="form-group">
+                                <label for="chanDoan">Chuẩn đoán</label>
+                                <textarea class="form-control" id="chanDoan" name="chanDoan" rows="3" required placeholder="Nhập chuẩn đoán của bác sĩ"></textarea>
+                            </div>
+                            <div id="thuocList">
+                                <div class="thuoc-item form-group">
+                                    <label>Tên thuốc</label>
+                                    <select class="form-control thuoc-select" name="tenThuoc" required>
+                                        <option value="">Chọn thuốc</option>
+                                    </select>
+                                    <input type="hidden" name="thuocId"/>
+                                    <label>Đơn vị tính</label>
+                                    <input type="text" class="form-control" name="donViTinh" required disabled/>
+                                    <label>Số lượng</label>
+                                    <input type="number" class="form-control" name="soLuong" required min="1"/>
+                                    <label>Hướng dẫn sử dụng</label>
+                                    <textarea class="form-control" name="hdsd" rows="2" required></textarea>
+                                    <button type="button" class="btn btn-danger btn-sm mt-2 remove-thuoc">Xóa</button>
+                                </div>
+                            </div>
+                            <button type="button" class="btn btn-success btn-sm mt-2" id="addThuoc">Thêm thuốc</button>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary" onclick="sendToaThuoc()">Gửi Toa Thuốc</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="sticky-footer">
+    <div class="container-fluid">
+        <div class="row align-items-center" style="min-height: 30px;">
+            <div class="col-md-6 text-center text-md-left">
+                <small class="footer-text">Copyright © Clinic System 2025</small>
+            </div>
+            <div class="col-md-6 text-center text-md-right">
+                <small class="footer-text">Hỗ trợ: support@clinic.vn | 0329626107</small>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<a class="scroll-to-top rounded" href="#page-top"><i class="fa fa-angle-up"></i></a>
+<div th:replace="fragments/fragment :: logoutModalBacSy"></div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        const Swal = window.Swal;
+
+        var ok = /*[[${ok}]]*/ '';
+        var error = /*[[${loi}]]*/ '';
+        if (ok) {
+            Swal.fire({
+                icon: 'success',
+                title: 'Thành công',
+                text: ok,
+                confirmButtonText: 'OK'
+            });
+        }
+        if (error) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: error,
+                confirmButtonText: 'Đóng'
+            });
+        }
+
+        $('.tienKham1').each(function() {
+            let x = Number($(this).html());
+            x = x.toLocaleString('vi-VN', { style: 'currency', currency: 'VND' });
+            $(this).html(x);
+        });
+
+        $('[data-target="#huyLichModal"]').on('click', function(e) {
+            e.preventDefault();
+            $('.modal').modal('hide');
+            setTimeout(() => {
+                $('#huyLichModal').modal('show');
+            }, 100);
+        });
+
+        $('#huyLichModal').on('shown.bs.modal', function() {
+            $('#lyDoHuy').off('focus blur mousemove');
+            $('#lyDoHuy').focus();
+        });
+
+        $('#toaThuocModal').on('shown.bs.modal', function() {
+            loadThuocOptions();
+        });
+
+        function loadThuocOptions() {
+            let baseUrl = window.location.origin;
+            $.ajax({
+                url: baseUrl + "/bacsy/danhSachThuoc",
+                xhrFields: { withCredentials: true },
+                success: function(data) {
+                    $('.thuoc-select').each(function() {
+                        let select = $(this);
+                        select.empty();
+                        select.append('<option value="">Chọn thuốc</option>');
+                        if (data && data.length > 0) {
+                            data.forEach(function(item) {
+                                let donViTinh = item.donVi || '';
+                                select.append(`<option value="${item.tenThuoc}" data-id="${item.id}" data-don-vi-tinh="${donViTinh}">${item.tenThuoc}</option>`);
+                            });
+                        }
+                    });
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Không tải được danh sách thuốc!',
+                        confirmButtonText: 'Đóng'
+                    });
+                }
+            });
+        }
+
+        $(document).on('change', '.thuoc-select', function() {
+            let selectedOption = $(this).find('option:selected');
+            let thuocId = selectedOption.data('id');
+            let donViTinh = selectedOption.data('donViTinh') || '';
+            let $thuocItem = $(this).closest('.thuoc-item');
+            $thuocItem.find('input[name="thuocId"]').val(thuocId);
+            $thuocItem.find('input[name="donViTinh"]').val(donViTinh).prop('disabled', true);
+            console.log('Thuốc ID:', thuocId, 'Đơn vị:', donViTinh);
+        });
+
+        $('#addThuoc').click(function() {
+            let newItem = $('.thuoc-item:first').clone();
+            newItem.find('input, textarea, select').val('');
+            newItem.find('input[name="donViTinh"]').prop('disabled', true);
+            newItem.find('.remove-thuoc').show();
+            $('#thuocList').append(newItem);
+            loadThuocOptions();
+        });
+
+        $(document).on('click', '.remove-thuoc', function() {
+            if ($('.thuoc-item').length > 1) {
+                $(this).closest('.thuoc-item').remove();
+            }
+        });
+
+        $('.thuoc-item:first .remove-thuoc').hide();
+    });
+
+    function huyLich() {
+        let lyDoHuy = $('#lyDoHuy').val().trim();
+        if (!lyDoHuy) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng nhập lý do hủy!',
+                confirmButtonText: 'OK'
+            });
+            $('#lyDoHuy').focus();
+            return;
+        }
+
+        let lichKhamId = $('input[name="id"]').val();
+        let formData = {
+            id: lichKhamId,
+            lyDoHuy: lyDoHuy
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/bacsy/huyLichKham",
+            data: formData,
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: response,
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = '/bacsy/xemChiTietLichKham?id=' + lichKhamId;
+                });
+                $('#huyLichModal').modal('hide');
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: xhr.responseText || 'Hủy lịch khám thất bại!',
+                    confirmButtonText: 'Đóng'
+                });
+            }
+        });
+    }
+
+    function confirmAppointment() {
+        let benhNhanEmail = $('[name="benhNhanEmail"]').val();
+        if (!benhNhanEmail || !/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(benhNhanEmail)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Email bệnh nhân không hợp lệ!',
+                confirmButtonText: 'Đóng'
+            });
+            return;
+        }
+
+        $.ajax({
+            type: "POST",
+            url: $("#xacNhanForm").attr("action"),
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: response,
+                    confirmButtonText: 'OK'
+                });
+                $("#trangThai").text("Đã xác nhận");
+                $("#actionButtons").html(`
+                    <form id="daKhamForm" action="/bacsy/daKham/${$('#xacNhanForm').attr('action').split('id=')[1]}" method="POST" style="display: inline-block;">
+                        <input type="button" class="btn btn-warning" value="Đã khám" onclick="markAsCompleted()"/>
+                    </form>
+                    <button class="btn btn-primary" data-toggle="modal" data-target="#toaThuocModal">Gửi toa thuốc</button>
+                `);
+            },
+            error: function(xhr, status, error) {
+                let errorMessage = xhr.responseText;
+                try {
+                    errorMessage = JSON.parse(xhr.responseText);
+                } catch (e) {}
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: errorMessage,
+                    confirmButtonText: 'Đóng'
+                });
+            }
+        });
+    }
+
+    function markAsCompleted() {
+        event.preventDefault();
+        let form = $("#daKhamForm");
+        let url = form.attr("action");
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: form.serialize(),
+            xhrFields: { withCredentials: true },
+            headers: {
+                "Accept": "application/json"
+            },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: response.message || 'Đã cập nhật trạng thái lịch khám thành công!',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    $("#trangThai").text("Đã khám");
+                    $("#actionButtons").html("<p>Lịch khám đã hoàn tất.</p>");
+                });
+            },
+            error: function(xhr, status, error) {
+                let errorMessage = xhr.responseText || 'Lỗi khi cập nhật trạng thái!';
+                try {
+                    errorMessage = JSON.parse(xhr.responseText).error || errorMessage;
+                } catch (e) {}
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: errorMessage,
+                    confirmButtonText: 'Đóng'
+                });
+            }
+        });
+    }
+
+    function sendToaThuoc() {
+        let thuocList = [];
+        $('.thuoc-item').each(function() {
+            let thuocId = $(this).find('input[name="thuocId"]').val();
+            let donViTinh = $(this).find('input[name="donViTinh"]').val().trim();
+            let soLuong = $(this).find('input[name="soLuong"]').val();
+            let hdsd = $(this).find('textarea[name="hdsd"]').val().trim();
+
+            if (!thuocId || !donViTinh || !soLuong || !hdsd) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng điền đầy đủ thông tin cho tất cả các thuốc!',
+                    confirmButtonText: 'Đóng'
+                });
+                return false;
+            }
+
+            if (parseInt(soLuong) <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Số lượng thuốc phải lớn hơn 0!',
+                    confirmButtonText: 'Đóng'
+                });
+                return false;
+            }
+
+            thuocList.push({
+                thuocId: thuocId,
+                donViTinh: donViTinh,
+                soLuong: parseInt(soLuong),
+                hdsd: hdsd
+            });
+        });
+
+        if (thuocList.length === 0) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng thêm ít nhất một thuốc hợp lệ!',
+                confirmButtonText: 'Đóng'
+            });
+            return;
+        }
+
+        let chanDoan = $('#chanDoan').val().trim();
+        if (!chanDoan) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Vui lòng nhập chuẩn đoán!',
+                confirmButtonText: 'Đóng'
+            });
+            return;
+        }
+
+        let lichKhamId = $("[name='lichKhamId']").val();
+        if (!lichKhamId || isNaN(parseInt(lichKhamId))) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Lịch khám không hợp lệ!',
+                confirmButtonText: 'Đóng'
+            });
+            return;
+        }
+
+        let benhNhanEmail = $("[name='benhNhanEmail']").val();
+        if (!benhNhanEmail || !/^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/.test(benhNhanEmail)) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Email bệnh nhân không hợp lệ!',
+                confirmButtonText: 'Đóng'
+            });
+            return;
+        }
+
+        let formData = {
+            thuocList: thuocList,
+            lichKhamId: lichKhamId,
+            benhNhanEmail: benhNhanEmail,
+            chanDoan: chanDoan
+        };
+
+        $.ajax({
+            type: "POST",
+            url: "/bacsy/guiToaThuoc",
+            contentType: "application/json",
+            data: JSON.stringify(formData),
+            xhrFields: { withCredentials: true },
+            success: function(response) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Thành công',
+                    text: response,
+                    confirmButtonText: 'OK'
+                });
+                $("#toaThuocModal").modal('hide');
+                $("#toaThuocForm")[0].reset();
+                $("#thuocList").html($('.thuoc-item:first').clone().find('input, textarea, select').val('').end());
+                $('.thuoc-item:first .remove-thuoc').hide();
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: xhr.responseText || 'Lỗi khi gửi toa thuốc!',
+                    confirmButtonText: 'Đóng'
+                });
+            }
+        });
+    }
+
+    $(document).on('input', 'textarea[name="hdsd"]', function() {
+        let hdsd = $(this).val();
+        if (hdsd.length > 255) {
+            $(this).val(hdsd.substring(0, 255));
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Hướng dẫn sử dụng không được vượt quá 255 ký tự!',
+                confirmButtonText: 'Đóng'
+            });
+        }
+    });
+
+    $(document).on('input', '#lyDoHuy', function() {
+        let lyDoHuy = $(this).val();
+        let confirmButton = $('#confirmCancelButton');
+        if (lyDoHuy.length > 100) {
+            $(this).val(lyDoHuy.substring(0, 100));
+            confirmButton.prop('disabled', true);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Lý do hủy không được vượt quá 100 ký tự!',
+                confirmButtonText: 'Đóng'
+            });
+        } else {
+            confirmButton.prop('disabled', false);
+        }
+    });
+
+    $(document).on('input', 'input[name="soLuong"]', function() {
+        let soLuong = $(this).val();
+        if (soLuong <= 0) {
+            $(this).val(1);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Số lượng thuốc phải lớn hơn 0!',
+                confirmButtonText: 'Đóng'
+            });
+        } else if (soLuong > 1000) {
+            $(this).val(1000);
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi',
+                text: 'Số lượng thuốc không được vượt quá 1000!',
+                confirmButtonText: 'Đóng'
+            });
+        }
+    });
+</script>
+</body>
+</html>

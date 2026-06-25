@@ -1,0 +1,850 @@
+<nav th:fragment="navAdmin" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav"
+     >
+    <a class="navbar-brand" href="/admin/home">Admin Panel</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+            data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+            aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+                <a class="nav-link" href="/admin/home">
+                    <i class="fa fa-fw fa-dashboard"></i>
+                    <span class="nav-link-text">Home</span>
+                </a>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents1"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Quản lý Bác Sỹ</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents1">
+                    <li>
+                        <a href="/admin/bacsy">Xem thông tin</a>
+                    </li>
+                    <li>
+                        <a href="/admin/bacsy/add">Thêm mới</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents2"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Quản lý bệnh nhân</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents2">
+                    <li>
+                        <a href="/admin/benhnhan">Xem thông tin</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents3"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Quản lý chuyên khoa</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents3">
+                    <li>
+                        <a href="/admin/chuyenkhoa">Xem thông tin</a>
+                    </li>
+                    <li>
+                        <a href="/admin/chuyenkhoa/add">Thêm mới</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents4"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Quản lý bài đăng</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents4">
+                    <li>
+                        <a href="/admin/baidang">Xem thông tin</a>
+                    </li>
+                    <li>
+                        <a href="/admin/baidang/add">Thêm mới</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents5"
+                   data-parent="#exampleAccordion">
+                    <i class="fa fa-fw fa-wrench"></i>
+                    <span class="nav-link-text">Quản lý chuyên mục</span>
+                </a>
+                <ul class="sidenav-second-level collapse" id="collapseComponents5">
+                    <li>
+                        <a href="/admin/chuyenmuc">Xem thông tin</a>
+                    </li>
+                    <li>
+                        <a href="/admin/chuyenmuc/add">Thêm mới</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <ul class="navbar-nav sidenav-toggler">
+            <li class="nav-item">
+                <a class="nav-link text-center" id="sidenavToggler">
+                    <i class="fa fa-fw fa-angle-left"></i>
+                </a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-envelope"></i>
+                    <span class="d-lg-none">Messages
+              <span class="badge badge-pill badge-primary">12 New</span>
+            </span>
+                    <span class="indicator text-primary d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="messagesDropdown">
+                    <h6 class="dropdown-header">New Messages:</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong>David Miller</strong>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">Hey there! This new version of SB Admin is pretty awesome!
+                            These messages clip off when they reach the end of the box so they don't overflow over to
+                            the sides!
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong>Jane Smith</strong>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">I was wondering if you could meet for an appointment at 3:00
+                            instead of 4:00. Thanks!
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+                        <strong>John Doe</strong>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">I've sent the final files over to you for review. When
+                            you're able to sign off of them let me know and we can discuss distribution.
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#">View all messages</a>
+                </div>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    <i class="fa fa-fw fa-bell"></i>
+                    <span class="d-lg-none">Alerts
+              <span class="badge badge-pill badge-warning">6 New</span>
+            </span>
+                    <span class="indicator text-warning d-none d-lg-block">
+              <i class="fa fa-fw fa-circle"></i>
+            </span>
+                </a>
+                <div class="dropdown-menu" aria-labelledby="alertsDropdown">
+                    <h6 class="dropdown-header">New Alerts:</h6>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems
+                            are online.
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-danger">
+                <strong>
+                  <i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems
+                            are online.
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">
+              <span class="text-success">
+                <strong>
+                  <i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+              </span>
+                        <span class="small float-right text-muted">11:21 AM</span>
+                        <div class="dropdown-message small">This is an automated server response message. All systems
+                            are online.
+                        </div>
+                    </a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item small" href="#">View all alerts</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <form class="form-inline my-2 my-lg-0 mr-lg-2">
+                    <div class="input-group">
+                        <input class="form-control" type="text" placeholder="Search for...">
+                        <span class="input-group-append">
+                <button class="btn btn-primary" type="button">
+                  <i class="fa fa-search"></i>
+                </button>
+              </span>
+                    </div>
+                </form>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+                    <i class="fa fa-fw fa-sign-out"></i>Logout</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div th:fragment="navBacSy">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #6c757d;
+            --text: #1f2937;
+        }
+        .navbar {
+            background: linear-gradient(to right, var(--primary), #60a5fa);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            font-family: 'Inter', sans-serif;
+        }
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #fff;
+        }
+        .navbar-nav .nav-link {
+            color: #fff;
+            font-weight: 500;
+            margin-left: 1rem;
+            transition: color 0.3s ease;
+        }
+        .navbar-nav .nav-link:hover {
+            color: #e0eafc;
+        }
+        .navbar .btn-logout {
+            background: #fff;
+            color: var(--primary);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .navbar .btn-logout:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+        }
+        .navbar-nav .dropdown-menu {
+            background: #fff;
+            border: none;
+            border-radius: 0.375rem;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            margin-top: 0.5rem;
+        }
+        .navbar-nav .dropdown-item {
+            color: var(--text);
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        .navbar-nav .dropdown-item:hover {
+            background: #f1f5f9;
+            color: var(--primary);
+        }
+        .navbar-nav .dropdown-toggle::after {
+            border-top-color: #fff;
+        }
+        @media (max-width: 576px) {
+            .navbar-brand {
+                font-size: 1.25rem;
+            }
+            .navbar-nav .nav-link {
+                margin-left: 0.5rem;
+                font-size: 0.9rem;
+            }
+            .navbar {
+                padding: 0.75rem 1rem;
+            }
+            .navbar-nav .dropdown-menu {
+                margin-top: 0;
+            }
+        }
+    </style>
+    <nav class="navbar navbar-expand-lg">
+        <a class="navbar-brand" href="bacsy_home">Clinic System</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="bacsy_home">Dashboard</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="accountDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Quản lý tài khoản
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="accountDropdown">
+                        <a class="dropdown-item" href="bacsy_profile">Xem profile</a>
+                        <a class="dropdown-item" href="bacsy_doi_mat_khau">Đổi mật khẩu</a>
+                    </div>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="scheduleDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Quản lý lịch khám bệnh
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="scheduleDropdown">
+                        <a class="dropdown-item" href="/bacsy/danhSachLichKham">Xem lịch khám</a>
+                        <a class="dropdown-item" href="/bacsy/xemThongKeLichKham">Xem thống kê lịch khám</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link btn-logout" href="#" data-toggle="modal" data-target="#logoutModal">Đăng xuất</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="logoutModal" class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+     aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+            <form class="modal-footer" th:action="@{/admin/logout}" method="post">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <input style="cursor: pointer" class="btn btn-primary" type="submit" th:value="Logout"></input>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="logoutModalBacSy">
+    <style>
+        :root {
+            --primary: #3b82f6;
+            --secondary: #6c757d;
+            --text: #1f2937;
+        }
+        .modal-content {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+        }
+        .modal-header {
+            background: linear-gradient(to right, var(--primary), #60a5fa);
+            color: #fff;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            border-bottom: none;
+            padding: 1rem 1.5rem;
+        }
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        .modal-header .close {
+            color: #fff;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+        .modal-header .close:hover {
+            opacity: 1;
+        }
+        .modal-body {
+            font-size: 1rem;
+            color: var(--text);
+            padding: 1.5rem;
+            line-height: 1.5;
+        }
+        .modal-footer {
+            border-top: none;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+        }
+        .modal-footer .btn {
+            padding: 0.5rem 1.2rem;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+        .modal-footer .btn-primary {
+            background: linear-gradient(to right, var(--primary), #60a5fa);
+            border: none;
+            color: #fff;
+        }
+        .modal-footer .btn-primary:hover {
+            background: linear-gradient(to right, #2563eb, var(--primary));
+            transform: translateY(-2px);
+        }
+        .modal-footer .btn-secondary {
+            background: #e5e7eb;
+            color: var(--text);
+            border: none;
+        }
+        .modal-footer .btn-secondary:hover {
+            background: #d1d5db;
+            transform: translateY(-2px);
+        }
+        @media (max-width: 576px) {
+            .modal-content {
+                margin: 0.5rem;
+            }
+            .modal-title {
+                font-size: 1.1rem;
+            }
+            .modal-body {
+                font-size: 0.9rem;
+                padding: 1rem;
+            }
+            .modal-footer {
+                padding: 0.75rem 1rem;
+            }
+            .modal-footer .btn {
+                padding: 0.4rem 1rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logoutModalLabel">Xác nhận đăng xuất</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn đăng xuất khỏi hệ thống?
+                </div>
+                <form class="modal-footer" th:action="@{/bacsy/logout}" method="post">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Hủy</button>
+                    <button class="btn btn-primary" type="submit">Đăng xuất</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="loginBar" class="mb-3 loginBar" xmlns:sec="http://www.w3.org/1999/xhtml">
+    <div class="row">
+        <div class="col-9">
+            <a href="/dang-nhap">
+                <button type="button" class="btn">Đăng nhập</button>
+            </a>
+            <a href="dang-ki">
+                <button type="button" class="btn">Đăng kí</button>
+            </a>
+        </div>
+        <div class="col-3" style="z-index: 99999;text-align: right"
+             th:if="${taiKhoan!=null&&taiKhoan.hasRole('BENH_NHAN')}" th:object="${taiKhoan}"
+             sec:authorize="isAuthenticated()">
+            <div class="dropdown">
+                <button type="button" class="btn dropdown-toggle" data-toggle="dropdown" th:text="*{username}">
+                </button>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                    <a class="dropdown-item" href="/doi-mat-khau"><i class="fas fa-key"></i> Đổi mật khẩu</a>
+                    <a class="dropdown-item" href="/lich-kham-benh?status=0"><i class="fas fa-calendar-alt"></i> Lịch khám bệnh</a>
+                    <div class="dropdown-divider"></div>
+                    <form method="POST" th:action="@{/logout}">
+                        <input class="dropdown-item" type="submit" value="Đăng xuất"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        /* Đặt font chữ toàn cục cho loginBar */
+        .loginBar {
+            padding: 1rem 1.5rem;
+            background: linear-gradient(90deg, #e0eafc, #cfdef3);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
+            width: 100%;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .loginBar .btn {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background 0.3s ease, transform 0.2s ease;
+            margin-right: 1rem;
+        }
+
+        .loginBar .btn:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+
+        .loginBar .dropdown {
+            display: inline-block;
+            position: relative;
+        }
+
+        .loginBar .dropdown-toggle {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            transition: background 0.3s ease;
+        }
+
+        .loginBar .dropdown-toggle:hover,
+        .loginBar .dropdown-toggle:focus {
+            background: #0056b3;
+            outline: none;
+        }
+
+        .loginBar .dropdown-menu {
+            font-size: 14px;
+            background: #ffffff;
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            min-width: 240px;
+            padding: 0.75rem 0;
+            font-family: 'Inter', sans-serif;
+            overflow: hidden;
+            position: absolute;
+            top: calc(100% + 14px);
+            animation: slideDown 0.3s ease-in-out forwards;
+            transform-origin: top center;
+            will-change: transform, opacity, visibility;
+            visibility: hidden;
+        }
+
+        .loginBar .dropdown-menu.show {
+            visibility: visible;
+        }
+
+        .loginBar .dropdown-item {
+            padding: 0.85rem 1.75rem;
+            color: #1a1a1a;
+            font-weight: 500;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin: 0.3rem 0.75rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loginBar .dropdown-item i {
+            color: #6b7280;
+        }
+
+        .loginBar .dropdown-item:hover,
+        .loginBar .dropdown-item:focus {
+            background: #f3f4f6;
+            color: #2563eb;
+        }
+
+        .loginBar .dropdown-divider {
+            border-top: 1px solid #e6e6e6;
+            margin: 0.75rem 1.25rem;
+        }
+
+        .loginBar .dropdown-item[type="submit"] {
+            cursor: pointer;
+            padding: 0.85rem 1.75rem;
+            color: #dc2626;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            border-radius: 8px;
+            margin: 0.3rem 0.75rem;
+            background: none;
+            border: none;
+            width: 100%;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .loginBar .dropdown-item[type="submit"]:hover {
+            background: #f3f4f6;
+            color: #dc2626;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+                visibility: hidden;
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+                visibility: visible;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .loginBar .col-9,
+            .loginBar .col-3 {
+                flex: 0 0 100%;
+                max-width: 100%;
+                text-align: center;
+            }
+            .loginBar .btn {
+                margin: 0.5rem 0;
+                width: 100%;
+                max-width: 150px;
+            }
+            .loginBar .dropdown-toggle {
+                width: 100%;
+                max-width: 150px;
+            }
+            .loginBar .dropdown-menu {
+                top: calc(100% + 14px);
+            }
+        }
+    </style>
+</div>
+
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- custom css file link  -->
+    <link rel="stylesheet" th:href="@{css/style.css}">
+    <title>Title</title>
+</head>
+
+
+<header th:fragment="menu" class="header">
+    <div class="pq-bottom-header pq-has-sticky">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <nav class="navbar navbar-expand-lg navbar-light">
+                        <a id="logo-web" class="navbar-brand" href="index.html">
+                            <img class="img-fluid logo" src="images/logo.png" alt="medicate">
+                        </a>
+                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                            <div id="pq-menu-contain" class="pq-menu-contain">
+                                <ul id="pq-main-menu" class="navbar-nav ml-auto">
+                                    <li class="menu-item current-menu-item">
+                                        <a href="/trang-chu">Trang chủ</a>
+
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a href="/dich-vu">Dịch vụ</a>
+                                    </li>
+                                    <li id="btn-timkiem" class="menu-item ">
+                                        <a href="/danh-sach-bac-sy">Bác sỹ</a>
+
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a href="/danh-gia">Đánh giá</a>
+
+                                    </li>
+                                    <li class="menu-item ">
+                                        <a href="/bai-dang">Bài đăng</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="pq-menu-search-block">
+                            <a href="javascript:void(0)" id="pq-seacrh-btn"><i class="ti-search"></i></a>
+                            <div class="pq-search-form">
+                                <form role="search" method="get" class="search-form" action=".html">
+                                    <label>
+                                        <span class="screen-reader-text">Search for:</span>
+                                        <input type="search" class="search-field" placeholder="Search …" value="" name="s">
+                                    </label>
+                                    <button type="submit" class="search-submit"><span class="screen-reader-text">Search</span></button>
+                                </form>
+                            </div>
+                        </div>
+                        <a  href="/dat-lich" class="pq-button">
+                            <div id="btn-datlich" class="pq-button-block">
+                                <span class="pq-button-text">ĐẶT LỊCH</span>
+                                <i class="ion ion-plus-round"></i>
+                            </div>
+                        </a>
+                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</header>
+
+<section th:fragment="footer" class="footer">
+    <footer id="pq-footer">
+        <div class="pq-footer-style-1">
+            <div class="pq-subscribe align-items-center">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-lg-12">
+                            <div class="pq-subscribe-bg">
+                                <div class="row align-items-center">
+                                    <div class="col-lg-5">
+                                        <div class="pq-subscribe-block"> <img src="images/Subscribe.png" class="pq-subscribe-img img-fluid" alt="medicate-subscribe-image">
+                                            <div class="pq-subscribe-details">
+                                                <h5>Cập Nhật Mới Nhất Đăng Ký Nhận Bản Tin Của Chúng Tôi</h5> </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-7 align-self-center">
+                                        <div class="pq-subscribe-from">
+                                            <form id="form" class="form">
+                                                <div class="form-fields">
+                                                    <input class="w-100 pq-bg-transparent" type="email" name="EMAIL" placeholder="Nhập Email Của Bạn" required="">
+                                                    <input class="" type="submit" value="Đăng Ký">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pq-footer-top">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xl-3 col-md-6">
+                            <div class="pq-footer-block">
+                                <img src="images/footer_logo.png" class="pq-footer-logo img-fluid" alt="medicate-footer-logo">
+                                <p>Nó giúp các nhà thiết kế lập kế hoạch nơi nội dung sẽ được đặt, nội dung cần được viết và phê duyệt.</p>
+
+                                <div class="pq-footer-social">
+                                    <ul>
+                                        <li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-instagram"></i></a></li>
+                                        <li><a href="#"><i class="fab fa-pinterest"></i></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="pq-footer-block">
+                                <h4 class="footer-title">Khóa Học</h4>
+                                <div class="menu-useful-links-container">
+                                    <ul id="menu-useful-links" class="menu">
+                                        <li><a href="#">Về Chúng Tôi</a></li>
+                                        <li><a href="#">Liên Hệ</a></li>
+                                        <li><a href="dich-vu.html">Dịch Vụ</a></li>
+                                        <li><a href="gioi-thieu.html">Quy Trình</a></li>
+                                        <li><a href="#">Bác Sĩ 1</a></li>
+                                        <li><a href="#">Câu Hỏi</a></li>
+                                        <li><a href="#">Bác Sĩ 2</a></li>
+                                        <li><a href="#">Các Khoa</a></li>
+                                        <li><a href="#">Sự Kiện</a></li>
+                                        <li><a href="#">Thành Viên</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="pq-footer-block">
+                                <h4 class="footer-title">Bài Đăng Gần Đây</h4>
+                                <div class="pq-footer-recent-post">
+                                    <div class="pq-footer-recent-post-media">
+                                        <a href="get-the-exercise-limited-mobility.html"> <img src="images/1_2.jpg" alt=""></a>
+                                    </div>
+                                    <div class="pq-footer-recent-post-info">
+                                        <a href="get-the-exercise-limited-mobility.html" class="pq-post-date"> <i class="far fa-calendar-alt"></i>12 <span>Tháng 12</span>, 2021 </a>
+                                        <h6><a href="get-the-exercise-limited-mobility.html">Tập Thể Dục Cho Người Hạn Chế Vận Động</a></h6> </div>
+                                </div>
+                                <div class="pq-footer-recent-post">
+                                    <div class="pq-footer-recent-post-media">
+                                        <a href="get-the-exercise-limited-mobility.html"> <img src="images/2.jpg" alt=""></a>
+                                    </div>
+                                    <div class="pq-footer-recent-post-info">
+                                        <a href="get-the-exercise-limited-mobility.html" class="pq-post-date"> <i class="far fa-calendar-alt"></i>12 <span>Tháng 12</span>, 2021 </a>
+                                        <h6><a href="get-the-exercise-limited-mobility.html">Chiến Lược Truyền Máu Trong Phẫu Thuật Tim</a></h6> </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 col-md-6">
+                            <div class="pq-footer-block">
+                                <h4 class="footer-title">Liên Hệ Với Chúng Tôi</h4>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <ul class="pq-contact">
+                                            <li> <a href="tel:+1800001658"><i class="fas fa-phone"></i>
+                                                <span> 0329626107</span>
+                                            </a> </li>
+                                            <li> <a href="mailto:info@peacefulthemes.com"><i class="fas fa-envelope"></i><span>info@gmail.com</span></a> </li>
+                                            <li> <i class="fas fa-map-marker"></i> <span>
+                                       T38 Trần Phú, Phường 8 Tân Bình Thành Phố Hồ Chí Minh                       </span> </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pq-copyright-footer">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12 text-center "> <span class="pq-copyright"> Bản Quyền 2025 medicate Tất Cả Quyền Được Bảo Lưu</span> </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</section>

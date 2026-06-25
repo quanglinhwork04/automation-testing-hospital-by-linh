@@ -1,0 +1,126 @@
+package testmangebooking;
+
+import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.io.FileHandler;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.io.File;
+import java.io.IOException;
+import java.time.Duration;
+
+public class TestGuiToaThuoc05 {
+public static void main(String[] args) {
+// Cài đặt ChromeDriver
+System.setProperty("webdriver.chrome.driver", "D:\\cnpm\\test\\webdriver\\chromedriver-win64\\chromedriver.exe");
+
+WebDriver driver = new ChromeDriver();
+WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+driver.manage().window().maximize();
+
+try {
+// B1: Truy cập trang đăng nhập bác sĩ
+driver.get("http://localhost:8084/bacsy/login/");
+Thread.sleep(500);
+
+// B2: Nhập thông tin đăng nhập bác sĩ
+WebElement usernameInput = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("username-doctor")));
+usernameInput.clear();
+usernameInput.sendKeys("doctor01"); // Thay bằng username bác sĩ thực tế
+WebElement passwordInput = driver.findElement(By.id("password-doctor"));
+passwordInput.clear();
+passwordInput.sendKeys("123"); // Thay bằng password thực tế
+Thread.sleep(500);
+
+// B3: Gửi form đăng nhập
+WebElement loginButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("btnlogin-doctor")));
+loginButton.click();
+Thread.sleep(2000); // Chờ đăng nhập hoàn tất
+
+// B4: Nhấn vào "Quản lý lịch khám bệnh" trong dropdown
+WebElement scheduleDropdown = wait.until(ExpectedConditions.elementToBeClickable(By.id("scheduleDropdown")));
+((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", scheduleDropdown);
+scheduleDropdown.click();
+Thread.sleep(300);
+
+// B5: Chọn "Xem lịch khám"
+WebElement viewScheduleLink = wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector("a[href='/bacsy/danhSachLichKham']")));
+viewScheduleLink.click();
+Thread.sleep(500);
+
+// B6: Chờ danh sách lịch khám hiển thị
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("dataTable")));
+Thread.sleep(300);
+
+// B7: Nhấn nút "Xem" trên hàng thứ 6 trong bảng
+WebElement viewButton = wait.until(ExpectedConditions.elementToBeClickable(
+By.cssSelector("#dataTable tbody tr:nth-child(10) td:last-child a.btn-success")
+));
+((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", viewButton);
+viewButton.click();
+Thread.sleep(500);
+
+// B8: Chờ trang chi tiết lịch khám hiển thị
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("actionButtons")));
+Thread.sleep(300);
+
+// B9: Nhấn nút "Gửi toa thuốc"
+WebElement sendPrescriptionButton = wait.until(ExpectedConditions.elementToBeClickable(
+By.cssSelector("button[data-target='#toaThuocModal']")
+));
+((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", sendPrescriptionButton);
+sendPrescriptionButton.click();
+
+// B10: Chờ modal toa thuốc hiển thị
+wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("toaThuocModal")));
+
+// B11: Nhập chuẩn đoán: "Viêm họng cấp"
+WebElement chanDoanField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("chanDoan")));
+chanDoanField.sendKeys("Viêm họng cấp");
+
+// B12: Chọn thuốc bằng index, đơn vị: Viên, số lượng: 10, hướng dẫn: Uống 1 viên/ngày
+WebElement thuocSelect = wait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector(".thuoc-select")));
+Select thuocDropdown = new Select(thuocSelect);
+// Chờ dropdown sẵn sàng và chọn mục thứ nhất (index 1, bỏ qua tùy chọn mặc định)
+wait.until(ExpectedConditions.visibilityOfAllElements(thuocSelect.findElements(By.tagName("option"))));
+thuocDropdown.selectByIndex(1); // Chọn mục đầu tiên (index 1)
+
+
+WebElement soLuongField = driver.findElement(By.cssSelector("input[name='soLuong']"));
+soLuongField.sendKeys("10");
+
+WebElement hdsdField = driver.findElement(By.cssSelector("textarea[name='hdsd']"));
+hdsdField.sendKeys("Uống 1 viên/ngàyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy");
+
+// B14: Đợi 2 giây để hành động gửi hoàn tất
+Thread.sleep(2000);
+
+// B15: Chụp ảnh màn hình
+takeScreenshot(driver, "GuiToaThuoc_05_Success");
+
+} catch (Exception e) {
+e.printStackTrace();
+// Chụp ảnh màn hình khi có lỗi chung
+try {
+takeScreenshot(driver, "PRESCRIPT05_Error");
+} catch (IOException ioException) {
+ioException.printStackTrace();
+}
+} finally {
+driver.quit();
+}
+}
+
+public static void takeScreenshot(WebDriver driver, String filename) throws IOException {
+File screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+File folder = new File("D:\\screenshots\\");
+if (!folder.exists()) folder.mkdirs();
+
+if (!filename.endsWith(".png")) filename += ".png";
+File destination = new File(folder, filename);
+FileHandler.copy(screenshot, destination);
+System.out.println("📸 Ảnh đã lưu: " + destination.getAbsolutePath());
+}
+}

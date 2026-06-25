@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Font Awesome 5.15 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" />
+    <!-- Bootstrap 4.6 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js" integrity="sha256-w8CvhFs7iHNVUtnSP0YKEg00p9Ih13rlL9zGqvLdePA=" crossorigin="anonymous"></script>
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <!-- Bootstrap 4.6 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-+sLIOodYLS7CIrQpBjl+C7nPvqq+FbNUBDunl/OZv93DB7Ln/533i8e/mZXLi/P+" crossorigin="anonymous"></script>
+    <title>Đăng Nhập - Phòng Khám ABC</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            min-height: 100vh;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            z-index: 0;
+        }
+        .login-container {
+            background: #ffffff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 100;
+        }
+        .login-container .heading {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+        }
+        .login-container .heading span {
+            color: #007bff;
+        }
+        .login-container .alert {
+            border-radius: 8px;
+            padding: 0.75rem;
+            margin-bottom: 1rem;
+            text-align: left;
+            font-size: 16px;
+            color: #dc3545;
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+        }
+        .login-container .form-group {
+            margin-bottom: 1rem;
+        }
+        .login-container .form-control {
+            padding: 0.75rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+            position: relative;
+            z-index: 200;
+            pointer-events: auto !important;
+        }
+        .login-container .form-control:focus {
+            border-color: #007bff;
+            outline: none;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+        }
+        .login-container .form-check {
+            text-align: left;
+            margin: 1rem 0;
+            font-size: 1rem;
+            position: relative;
+            z-index: 200;
+        }
+        .login-container .form-check-label {
+            margin-left: 10px;
+            font-size: 1rem;
+        }
+        .login-container .btn-primary {
+            background: #007bff;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: background 0.3s ease, transform 0.2s ease;
+            width: 100%;
+            position: relative;
+            z-index: 200;
+        }
+        .login-container .btn-primary:hover {
+            background: #0056b3;
+            transform: translateY(-2px);
+        }
+        .login-container .alt-text {
+            font-size: 1rem;
+            margin: 1rem 0;
+            color: #6c757d;
+        }
+        .login-container .social-links a {
+            display: block;
+            width: 100%;
+            padding: 0.75rem;
+            margin-bottom: 0.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #fff;
+            font-size: 1rem;
+            transition: background 0.3s ease;
+            position: relative;
+            z-index: 200;
+        }
+        .login-container .social-links a.fb { background: #3b5998; }
+        .login-container .social-links a.fb:hover { background: #344e86; }
+        .login-container .social-links a.twitter { background: #1da1f2; }
+        .login-container .social-links a.twitter:hover { background: #1a91da; }
+        .login-container .social-links a.google { background: #db4437; }
+        .login-container .social-links a.google:hover { background: #c23321; }
+        @media (max-width: 576px) {
+            .login-container {
+                padding: 1.5rem;
+                margin: 0 1rem;
+            }
+            .login-container .heading {
+                font-size: 1.75rem;
+            }
+            .login-container .form-control, .login-container .btn-primary {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="login-container">
+    <h1 class="heading"><span>Đăng</span> Nhập</h1>
+    <div th:if="${param.error}" class="alert" role="alert">
+        Không thể đăng nhập. Vui lòng kiểm tra tài khoản và mật khẩu của bạn.
+    </div>
+    <form th:action="@{/dang-nhap}" method="POST" style="text-align: center">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Tài khoản" name="username" required>
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control" placeholder="Mật khẩu" name="password" required>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="benhNhanId" id="rememberMe">
+            <label class="form-check-label" for="rememberMe">Ghi nhớ tôi</label>
+        </div>
+        <button type="submit" class="btn btn-primary">Đăng Nhập</button>
+        <p class="alt-text">Hoặc đăng nhập với</p>
+        <div class="social-links">
+            <a href="#" class="fb"><i class="fa fa-facebook fa-fw"></i> Đăng nhập với Facebook</a>
+            <a href="#" class="twitter"><i class="fa fa-twitter fa-fw"></i> Đăng nhập với Twitter</a>
+            <a href="/oauth2/authorization/google" class="google"><i class="fa fa-google fa-fw"></i> Đăng nhập với Google</a>
+        </div>
+    </form>
+</div>
+</body>
+</html>

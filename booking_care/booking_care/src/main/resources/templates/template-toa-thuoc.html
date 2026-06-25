@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body style="margin: 0; padding: 0; font-family: 'Inter', Arial, sans-serif; background-color: #f5f7fa;">
+<div style="width: 100% !important; background: linear-gradient(135deg, #e8f5e9, #c8e6c9); padding: 20px 0;">
+    <div style="margin: auto; width: 60%; max-width: 600px; background-color: #ffffff; border-radius: 10px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); border: 1px solid #e0e0e0;">
+        <div style="width: 100%; background: linear-gradient(90deg, #1976d2, #42a5f5); border-top-left-radius: 10px; border-top-right-radius: 10px; padding: 10px 20px;">
+            <h3 style="color: #ffffff; font-size: 24px; font-weight: 600; margin: 0; text-transform: uppercase; letter-spacing: 1px;">Medicate</h3>
+        </div>
+        <div style="padding: 30px 20px;">
+            <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 15px;">
+                Kính gửi Anh/Chị <strong style="color: #1976d2;" th:text="${benhNhan.hoTen ?: 'Khách'}"></strong>,
+            </p>
+            <div style="margin-bottom: 20px;">
+                <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 5px;">
+                    <strong>Số điện thoại:</strong> <span th:text="${benhNhan.sdt ?: 'Không có'}"></span>
+                </p>
+                <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 5px;">
+                    <strong>Địa chỉ:</strong> <span th:text="${benhNhan.diaChi ?: 'Không có'}"></span>
+                </p>
+                <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 5px;">
+                    <strong>Ngày sinh:</strong> <span th:text="${#dates.format(benhNhan.ngaySinh, 'dd/MM/yyyy') ?: 'Không có'}"></span>
+                </p>
+            </div>
+            <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
+                <strong>Chuẩn đoán:</strong> <span th:text="${chanDoan ?: 'Không có'}"></span>
+            </p>
+            <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 0 0 20px;">
+                Dưới đây là toa thuốc từ bác sĩ <strong style="color: #1976d2;" th:text="${bacSy.hoTen ?: 'Không xác định'}"></strong>:
+            </p>
+            <table style="border-collapse: collapse; width: 100%; background-color: #fafafa; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+                <thead>
+                <tr style="background-color: #1976d2; color: #ffffff;">
+                    <th style="width: 25%; padding: 12px; text-align: left; font-weight: 500; border-bottom: 2px solid #42a5f5;">Tên thuốc</th>
+                    <th style="width: 25%; padding: 12px; text-align: left; font-weight: 500; border-bottom: 2px solid #42a5f5;">Đơn vị tính</th>
+                    <th style="width: 20%; padding: 12px; text-align: left; font-weight: 500; border-bottom: 2px solid #42a5f5;">Số lượng</th>
+                    <th style="width: 30%; padding: 12px; text-align: left; font-weight: 500; border-bottom: 2px solid #42a5f5;">Hướng dẫn sử dụng</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="item : ${thuocItems}" style="border-bottom: 1px solid #e0e0e0;">
+                    <td style="padding: 12px;" th:text="${item.tenThuoc ?: ''}"></td>
+                    <td style="padding: 12px;" th:text="${item.donViTinh ?: ''}"></td>
+                    <td style="padding: 12px;" th:text="${item.soLuong ?: 0}"></td>
+                    <td style="padding: 12px;" th:text="${item.hdsd ?: ''}"></td>
+                </tr>
+                </tbody>
+            </table>
+            <p style="color: #333; font-size: 16px; line-height: 1.6; margin: 20px 0 0; text-align: center; font-style: italic;">
+                Vui lòng tuân thủ hướng dẫn của bác sĩ. Chúc Anh/Chị mau khỏe!
+            </p>
+        </div>
+    </div>
+    <p style="text-align: center; color: #555; font-size: 12px; margin: 10px 0 0;">© 2025 Medicate. All rights reserved.</p>
+</div>
+</body>
+</html>
